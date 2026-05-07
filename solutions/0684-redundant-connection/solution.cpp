@@ -5,7 +5,7 @@ public:
     DSU(int n)
     {
         parent.resize(n+1);
-        rank.resize(n+1,0);
+        rank.resize(n+1);
         for (int i = 1; i<n+1; i++)
         {
             parent[i] = i;
