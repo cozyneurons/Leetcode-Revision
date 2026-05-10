@@ -21,6 +21,7 @@ public:
             sum += nums[i];
             digsum += digitsum(nums[i]);
         }
-        return abs(sum-digsum);
+        int suui = digsum;
+        return abs(sum-suui);
     }
 };
