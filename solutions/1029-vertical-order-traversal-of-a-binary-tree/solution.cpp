@@ -11,30 +11,40 @@
  */
 class Solution {
 public:
-    map <int, map<int, multiset<int>>> mp;  
-    void dfs(TreeNode* node,int row, int column)
+    vector<vector<int>> ans;
+    map <int, map<int,multiset<int>>> mp;
+    void dfs(TreeNode* root, int row, int col)
     {
-        if(!node) return;
-        mp[column][row].insert(node->val);
-        if (node->left) dfs(node->left,row+1,column-1);
-        if (node->right) dfs(node->right,row+1,column+1);
-        return;
+        if (!root) return;
+        
+        mp[col][row].insert(root->val);
+
+        if (root->left) 
+        {
+            dfs(root->left,row+1,col-1);
+        }
+        if (root->right) 
+        {
+            dfs(root->right,row+1,col+1);
+        }
     }
+    
     vector<vector<int>> verticalTraversal(TreeNode* root) 
     {
-        
-        vector<vector<int>> ans;
-        if (!root) return ans;
+        //[-1][1] = 9
         dfs(root,0,0);
-        for (auto &colPair : mp)
+        for (auto& colPair : mp)
         {
             vector<int> col;
-            for (auto &rowPair : colPair.second)
+            for (auto& rowPair : colPair.second)
             {
-                for (int val : rowPair.second) col.push_back(val);
+                for (int value : rowPair.second)
+                {
+                    col.push_back(value);
+                }
             }
             ans.push_back(col);
         }
         return ans;
     }
-};
+}; 
