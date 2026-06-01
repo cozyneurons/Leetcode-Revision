@@ -11,19 +11,18 @@
  */
 class Solution {
 public:
-    void Recursion(TreeNode* node, int level, vector<int> &ans)
+    void toto(TreeNode* root,int level, vector<int>& ans)
     {
-        if(!node) return;
-        if (level==ans.size()) ans.push_back(node->val);
-        if (node->right) Recursion(node->right, level+1, ans);
-        if (node->left) Recursion(node->left, level+1, ans);
-        return;
+        if (!root) return;
+        if (ans.size()==level) ans.push_back(root->val);
+        if (root->right) toto(root->right,level+1,ans);
+        if (root->left) toto(root->left,level+1,ans);
     }
     vector<int> rightSideView(TreeNode* root) 
     {
         vector<int> ans;
         if(!root) return ans;
-        Recursion(root,0,ans);
+        toto(root,0,ans);
         return ans;
     }
 };
