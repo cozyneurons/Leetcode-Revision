@@ -11,32 +11,31 @@ public:
             parent[i] = i;
             rank[i] = 0;
         }
-        
     }
-
     int find(int x)
     {
         if (parent[x]==x) return x;
         return parent[x] = find(parent[x]);
     }
-
     void Union(int u, int v)
     {
-        int pu = find(u);
-        int pv = find(v);
+        int pu = parent[u];
+        int pv = parent[v];
         if (pu==pv) return;
         if (rank[pu]>rank[pv])
         {
             parent[pv] = pu;
+            rank[pu]++;
         }
         else if (rank[pv]>rank[pu])
         {
             parent[pu] = pv;
+            rank[pv]++;
         }
         else
         {
-            parent[pu] = pv;
-            rank[pv]++;
+            parent[pv] = pu;
+            rank[pu]++;
         }
     }
 };
@@ -47,16 +46,18 @@ public:
     {
         int n = edges.size();
         DSU dsu(n);
-        for (int i = 0; i<n; i++)
+        for (int i = 0 ;i<n; i++)
         {
             int u = edges[i][0];
             int v = edges[i][1];
-
             if (dsu.find(u)==dsu.find(v)) return edges[i];
-
             dsu.Union(u,v);
-
         }
         return {};
     }
 };
+//parent = [1,2,3,4,5]
+// rank = [0,0,0,0,0]
+
+//parent = [1,1,1,1,5]
+// rank = [3,0,0,0,0]
