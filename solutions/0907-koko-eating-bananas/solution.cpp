@@ -1,41 +1,35 @@
-class Solution {
+class Solution 
+{
 private:
-    long long requiredTime(vector<int>& piles, int k)
+    long long calci(int k, vector<int>& piles)
     {
-        long long tem = 0;
-
+        long long yeah_boi = 0;
         for (int i = 0; i < piles.size(); i++)
         {
-            tem += ((long long)piles[i] + k - 1) / k;
+            yeah_boi += (piles[i] + k - 1) / k;
         }
-
-        return tem;
+        return yeah_boi;
     }
-
 public:
     int minEatingSpeed(vector<int>& piles, int h) 
     {
         int low = 1;
         int high = *max_element(piles.begin(), piles.end());
-        int ans = high;
-
-        while (low <= high)
+        int ans = 0;
+        while(low<=high)
         {
-            int k = low + (high - low) / 2;
-
-            long long reqTime = requiredTime(piles, k);
-
-            if (reqTime <= h)
+            int mid = low + (high - low) / 2;
+            long long time = calci(mid, piles);  
+            if (time <= h)
             {
-                ans = k;
-                high = k - 1;
+                ans = mid;
+                high = mid - 1;
             }
             else
             {
-                low = k + 1;
+                low = mid + 1;
             }
         }
-
         return ans;
     }
 };
