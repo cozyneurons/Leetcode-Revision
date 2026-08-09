@@ -1,17 +1,19 @@
 class Solution {
 private:
-    void backtrack(string digits,vector<string> &ans,unordered_map<char, string> &ump,int level,string current)
+    void backtrack(string digits, vector<string>& ans, unordered_map<char, string> ump, int i, string temp)
     {
-        if (level==digits.size())
+        // base case
+        if (i==digits.size())
         {
-            ans.push_back(current);
+            ans.push_back(temp);
+            return;
         }
-        char current_digit = digits[level];
-        for (auto &x : ump[current_digit])
+        string kuchpuch = ump[digits[i]];
+        for (int j = 0; j<kuchpuch.size(); j++)
         {
-            current.push_back(x);
-            backtrack(digits,ans,ump,level+1,current);
-            current.pop_back();
+            temp.push_back(kuchpuch[j]);
+            backtrack(digits,ans,ump,i+1,temp);
+            temp.pop_back();
         }
     }
 public:
