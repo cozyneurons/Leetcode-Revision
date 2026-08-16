@@ -5,6 +5,7 @@ public:
         stack<int> st;
         heights.push_back(0); 
         int maxArea = 0;
+        
         for(int i = 0; i < heights.size(); i++)
         {
             while(!st.empty() && heights[st.top()] > heights[i])
