@@ -3,7 +3,8 @@ public:
     int maxProfit(vector<int>& prices) 
     {
         int n = prices.size();
-        vector<vector<int>> dp (n+1,vector<int>(5,0));
+        vector<int> after(5,0);
+        vector<int> curr(5,0);
         for (int ind = n-1; ind>=0; ind--)
         {
             for (int tranNo = 0; tranNo<4; tranNo++)
@@ -11,15 +12,16 @@ public:
                 int profit;
                 if (tranNo%2==0)
                 {
-                    profit = max (-prices[ind]+dp[ind+1][tranNo+1],dp[ind+1][tranNo]);
+                    profit = max (-prices[ind]+after[tranNo+1],after[tranNo]);
                 }
                 else 
                 {
-                    profit = max (prices[ind]+dp[ind+1][tranNo+1],dp[ind+1][tranNo]);
+                    profit = max (prices[ind]+after[tranNo+1],after[tranNo]);
                 }
-                dp[ind][tranNo] = profit;
+                curr[tranNo] = profit;
             }
+            after = curr;
         }
-        return dp[0][0];
+        return curr[0];
     }
 };
