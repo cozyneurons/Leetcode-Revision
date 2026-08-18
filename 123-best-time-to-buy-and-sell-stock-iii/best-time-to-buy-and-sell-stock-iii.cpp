@@ -3,26 +3,23 @@ public:
     int maxProfit(vector<int>& prices) 
     {
         int n = prices.size();
-        vector<vector<int>> after (2,vector<int>(3,0));
-        vector<vector<int>> curr (2,vector<int>(3,0));
+        vector<vector<int>> dp (n+1,vector<int>(5,0));
         for (int ind = n-1; ind>=0; ind--)
         {
-            for (int buy = 0; buy<=1; buy++)
+            for (int tranNo = 0; tranNo<4; tranNo++)
             {
-                for (int cap = 1; cap<=2; cap++)
+                int profit;
+                if (tranNo%2==0)
                 {
-                    if (buy)
-                    {
-                        curr[buy][cap] = max (-prices[ind]+after[0][cap],after[1][cap]);
-                    }
-                    else
-                    {
-                        curr[buy][cap] = max (prices[ind]+after[1][cap-1],after[0][cap]);
-                    }
+                    profit = max (-prices[ind]+dp[ind+1][tranNo+1],dp[ind+1][tranNo]);
                 }
+                else 
+                {
+                    profit = max (prices[ind]+dp[ind+1][tranNo+1],dp[ind+1][tranNo]);
+                }
+                dp[ind][tranNo] = profit;
             }
-            after = curr;
         }
-        return curr[1][2];
+        return dp[0][0];
     }
 };
