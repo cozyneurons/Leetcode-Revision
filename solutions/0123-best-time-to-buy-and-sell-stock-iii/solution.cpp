@@ -1,26 +1,27 @@
 class Solution {
-private:
-    int helper(int ind, int buy , int cap, vector<int>& prices, vector<vector<vector<int>>>& dp)
-    {
-        if (ind==prices.size()) return 0;
-        if (cap==0) return dp[ind][buy][cap] = 0;
-        if (dp[ind][buy][cap]!=-1) return dp[ind][buy][cap];
-        int profit;
-        if (buy)
-        {
-            profit = max (-prices[ind]+helper(ind+1,0,cap,prices,dp),helper(ind+1,1,cap,prices,dp));
-        }
-        else
-        {
-            profit = max (prices[ind]+helper(ind+1,1,cap-1,prices,dp),helper(ind+1,0,cap,prices,dp));
-        }
-        return dp[ind][buy][cap] = profit;
-    }
 public:
     int maxProfit(vector<int>& prices) 
     {
         int n = prices.size();
-        vector<vector<vector<int>>> dp (n,vector<vector<int>>(2,vector<int>(3,-1)));
-        return helper(0,1,2,prices,dp);
+        vector<int> after(5,0);
+        vector<int> curr(5,0);
+        for (int ind = n-1; ind>=0; ind--)
+        {
+            for (int tranNo = 0; tranNo<4; tranNo++)
+            {
+                int profit;
+                if (tranNo%2==0)
+                {
+                    profit = max (-prices[ind]+after[tranNo+1],after[tranNo]);
+                }
+                else 
+                {
+                    profit = max (prices[ind]+after[tranNo+1],after[tranNo]);
+                }
+                curr[tranNo] = profit;
+            }
+            after = curr;
+        }
+        return curr[0];
     }
 };
