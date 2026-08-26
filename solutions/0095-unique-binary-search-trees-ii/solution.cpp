@@ -1,7 +1,12 @@
 class Solution {
 private:
+    map<pair<int,int>, vector<TreeNode*>> mp;
     vector<TreeNode*> solve(int start, int end) {
         if (start > end) return {nullptr};
+        if (mp.find({start, end}) != mp.end()) 
+        {
+            return mp[{start, end}];
+        }
         vector<TreeNode*> result;
         for (int i = start; i <= end; i++) 
         {
@@ -17,8 +22,8 @@ private:
                     result.push_back(root);
                 }
             }
-        }
-        return result;
+        } 
+        return mp[{start, end}] = result;
     }
     
 public:
