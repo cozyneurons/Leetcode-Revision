@@ -20,6 +20,7 @@ private:
             track[i] = 1;
             if (recursion(i+1,nums,track,k,ori_k,req_sum-nums[i])) return true;
             track[i] = 0;
+            if (req_sum==0) return false;
         }
         return false;
     }
