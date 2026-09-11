@@ -3,8 +3,8 @@ public:
     int minDistance(string word1, string word2) {
         int m = word1.length();
         int n = word2.length();
-        vector<int> prev(n + 1, 0);
-        vector<int> curr(n + 1, 0);
+        vector<int> prev(n+1, 0);
+        vector<int> curr(n+1, 0);
         for (int j = 0; j<=n; j++) 
         {
             prev[j] = j;
@@ -12,7 +12,7 @@ public:
         for (int i = 1; i<=m; i++) 
         {
             curr[0] = i;
-            for (int j = 1; j <= n; j++) 
+            for (int j = 1; j<=n; j++) 
             {
                 if (word1[i - 1] == word2[j - 1]) 
                 {
