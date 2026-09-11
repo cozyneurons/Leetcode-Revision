@@ -34,15 +34,7 @@ public:
         head->prev = NULL;
     }
     
-    // Optional but good practice: Destructor to clean up memory
-    ~LRUCache() {
-        Node* curr = head;
-        while (curr != NULL) {
-            Node* nextNode = curr->next;
-            delete curr;
-            curr = nextNode;
-        }
-    }
+
 
     void pbh(Node* head, Node* tail, Node* curr) {
         Node* front = head->next;
